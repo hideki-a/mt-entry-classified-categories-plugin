@@ -29,7 +29,7 @@ sub _hdlr_entry_classified_categories {
     for my $category (@categories) {
         # 参考: mtdevguide1.pdf P.285
         local $ctx->{__stash}{category} = $category;
-        local $vars->{__index__} = $i + 1;
+        local $vars->{__counter__} = $i + 1;
         local $vars->{__first__} = ($i != 1);
         local $vars->{__last__} = ($i == $n_categories - 1);
 
