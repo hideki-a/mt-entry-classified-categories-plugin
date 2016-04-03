@@ -36,7 +36,8 @@ sub _hdlr_entry_classified_categories {
         my $tokens = $ctx->stash('tokens');
         my $builder = $ctx->stash('builder');
 
-        defined (my $out = $builder->build( $ctx, $tokens, $cond ));
+        defined (my $out = $builder->build( $ctx, $tokens, $cond ))
+            or return $ctx->error($builder->errstr);
         $res .= $out;
 
         $i += 1;
