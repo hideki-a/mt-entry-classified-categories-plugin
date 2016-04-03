@@ -1,0 +1,8 @@
+id: EntryClassifiedCategories
+name: EntryClassifiedCategories
+version: 1.0
+
+tags:
+    block:
+        EntryClassifiedCategories: $EntryClassifiedCategories::EntryClassifiedCategories::Tags::_hdlr_entry_classified_categories
+        PageClassifiedFolders: $EntryClassifiedCategories::EntryClassifiedCategories::Tags::_hdlr_entry_classified_categories
