@@ -7,7 +7,7 @@
 - MTEntryClassifiedCategories
 - MTPageClassifiedFolders
 
-タグ名が違うだけで処理は同一です。
+タグ名が違うだけで処理は同一です。`level`モディファイアで任意の階層の情報が取得できます。
 
 ## サンプル
 

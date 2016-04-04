@@ -3,6 +3,7 @@ use strict;
 
 sub _hdlr_entry_classified_categories {
     my ($ctx, $args, $cond) = @_;
+    my $level = $args->{level};
     my $entry = $ctx->stash('entry');
     my $vars = $ctx->{__stash}{vars} ||= {};
     my $category = $entry->category();
@@ -26,21 +27,31 @@ sub _hdlr_entry_classified_categories {
     my $i = 0;
     my $n_categories = @categories;
 
-    for my $category (@categories) {
-        # 参考: mtdevguide1.pdf P.285
-        local $ctx->{__stash}{category} = $category;
-        local $vars->{__counter__} = $i + 1;
-        local $vars->{__first__} = ($i != 1);
-        local $vars->{__last__} = ($i == $n_categories - 1);
-
+    if ($level) {
+        local $ctx->{__stash}{category} = $categories[$level - 1];
         my $tokens = $ctx->stash('tokens');
         my $builder = $ctx->stash('builder');
 
         defined (my $out = $builder->build( $ctx, $tokens, $cond ))
             or return $ctx->error($builder->errstr);
         $res .= $out;
+    } else {
+        for my $category (@categories) {
+            # 参考: mtdevguide1.pdf P.285
+            local $ctx->{__stash}{category} = $category;
+            local $vars->{__counter__} = $i + 1;
+            local $vars->{__first__} = ($i != 1);
+            local $vars->{__last__} = ($i == $n_categories - 1);
 
-        $i += 1;
+            my $tokens = $ctx->stash('tokens');
+            my $builder = $ctx->stash('builder');
+
+            defined (my $out = $builder->build( $ctx, $tokens, $cond ))
+                or return $ctx->error($builder->errstr);
+            $res .= $out;
+
+            $i += 1;
+        }
     }
 
     return $res;
