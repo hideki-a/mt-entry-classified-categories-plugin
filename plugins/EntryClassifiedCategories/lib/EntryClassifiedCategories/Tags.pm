@@ -11,14 +11,16 @@ sub _hdlr_entry_classified_categories {
     # 参考: https://github.com/movabletype/Documentation/wiki/Japanese-plugin-dev-2-2
     my @categories = ();
 
-    while (1) {
-        if ($category->parent() == 0) {
-            push (@categories, $category);
-            last;
-        }
+    if ($entry->category_id) {
+        while (1) {
+            if ($category->parent() == 0) {
+                push (@categories, $category);
+                last;
+            }
 
-        push (@categories, $category);
-        $category = MT::Category->load($category->parent());
+            push (@categories, $category);
+            $category = MT::Category->load($category->parent());
+        }
     }
 
     @categories = reverse @categories;
