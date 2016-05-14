@@ -11,7 +11,7 @@ sub _hdlr_entry_classified_categories {
     # 参考: https://github.com/movabletype/Documentation/wiki/Japanese-plugin-dev-2-2
     my @categories = ();
 
-    if ($entry->category_id) {
+    if ($category) {
         while (1) {
             if ($category->parent() == 0) {
                 push (@categories, $category);
